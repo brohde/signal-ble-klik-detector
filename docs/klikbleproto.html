@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<title>Klik Wearable BLE Protocol</title>
+<style type="text/css">
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200');
+
+body {
+  color: black;
+  background: white;
+  font: 400 14px / 1.42 'Roboto', Helvetica, sans-serif;
+}
+
+/* Layout */
+
+.document {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contents {
+  width: 240px;
+  position: fixed;
+  top: 24px;
+  bottom: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+h1.title, .document > .section {
+  margin-left: 266px;
+  width: 800px;
+}
+
+.document > .section:not(#overview) {
+  padding: 12px;
+  width: 776px;
+}
+
+@media (max-width: 1200px) {
+  #contents {
+    width: 198px;
+  }
+  .document {
+    max-width: 840px;
+  }
+  .document > .section {
+    margin-left: 224px;
+    width: 606px;
+  }
+}
+@media (max-width: 992px) {
+  #contents {
+    width: 169.4px;
+  }
+  .document {
+    max-width: 720px;
+  }
+  .document > .section {
+    margin-left: 194px;
+    width: 526px;
+  }
+}
+@media (max-width: 768px) {
+  #contents {
+    display: none;
+  }
+  .document {
+    width: 95%;
+    max-width: none;
+  }
+  .document > .section {
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+  }
+}
+
+/* TOC */
+
+#contents .topic-title {
+    display: none;
+    border: none;
+}
+
+#contents ul {
+    list-style: none;
+    padding-left: 0;
+    background-color: white;
+    margin-top: 0;
+}
+
+#contents > ul.simple > li > a {
+    background-color: #f2f2f2;
+    padding: 12px 12px;
+}
+
+#contents > ul > li {
+    margin-bottom: 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+#contents ul li a {
+    display: block;
+    color: rgba(0,0,0,0.7);
+    padding: 8px 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-left: 2px solid transparent;
+}
+
+#contents ul li a:hover {
+  border-left: 2px solid black;
+}
+
+
+#contents > ul > li > ul > li a {
+    font-size: 13px;
+    border-top: 1px solid #d9d9d9;
+}
+
+.quicknav, .contents .collapse-button {
+  font-size: smaller;
+  color: #444;
+  position: fixed;
+  right: 12px;
+}
+
+.quicknav div, .contents .collapse-button {
+  opacity: 0.5;
+}
+
+.quicknav div:hover, .contents .collapse-button:hover {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.contents .collapse-button {
+  float: none;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+
+
+/* Headers */
+
+h1.title {
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+h1, h2, h3, h4, h5 {
+  color: black;
+  margin: 36px 0 16px 0;
+}
+
+.admonition-title {
+  margin: 12px 0;
+}
+
+h1, h2, .admonition-title {
+  font: 200 36px 'Raleway', Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2, .admonition-title {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 100%;
+  text-transform: uppercase;
+}
+
+h5 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+.document > .section:not(#overview) {
+    margin-bottom: 12px;
+    margin-top: 36px;
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+}
+
+h1 a, h2 a {
+    color: black;
+}
+
+.document > .section:not(#overview) h1 { /* API Groups*/
+    padding: 12px;
+    margin: -12px -12px 12px -12px;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #d9d9d9;
+    font-size: 30px;
+}
+
+.document > .section:not(#overview) h2 { /* API Names */
+    text-transform: uppercase;
+    font-weight: bold;
+    font: 400 120% 'Roboto',Helvetica,sans-serif;
+    margin: 26px 0 12px 0;
+}
+
+.document > .section:not(#overview) h3 { /* API parts */
+    margin: 18px 0 12px 0;
+}
+
+.collapsable.section > div {
+  padding-left: 12px;
+}
+
+/* Default Styles */
+
+p {
+  margin: 0 0 10px;
+}
+
+a {
+  color: #428bca;
+  text-decoration: none;
+}
+
+cite {
+  color: #444;
+  background-color: #f5f5f5;
+  font-family: 'Inconsolata', monospace;
+  padding: 0px 4px;
+  border: 1px solid #cfcfcf;
+  border-radius: 3px;
+  font-style: normal;
+}
+
+blockquote {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 15.5px;
+  padding: 10px 20px;
+  margin: 12px 0;
+  border-left: 5px solid #e8e8e8;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  overflow: auto;
+  color: #444;
+  font-family: 'Inconsolata', monospace;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+table tr:nth-child(2n):not(.field) {
+  background-color: #fafafa;
+}
+
+table th:not(.field-name), table td:not(.field-body) {
+  padding: 6px 12px;
+  border: 1px solid #e6e6e6;
+}
+
+dd {
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+
+}
+
+.field-name {
+    text-align: right;
+    padding-right: 20px;
+    width: 150px;
+}
+
+.field-name, .field-body {
+    padding-top: 6px;
+}
+
+/* Admonitions */
+
+.important, .note, .warning {
+    padding: .3em 1em;
+    margin: 1em 0;
+    border-radius: 2px;
+    font-size: 90%;
+}
+
+.note, .important {
+    color: black;
+    background-color: #f0f6fb;
+    border-left: 4px solid #428bca;
+}
+
+.warning {
+    color: black;
+    background-color: #fbf1f0;
+    border-left: 4px solid #c9302c;
+}
+
+.admonition-title {
+    font-size: 135%;
+}
+
+.note .admonition-title, .important .admonition-title {
+    color: #428bca;
+}
+
+.warning .admonition-title {
+    color: #c9302c;
+}
+
+/* API Sections */
+
+.restapi {
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 24px;
+}
+
+.api dd {
+    border: 0;
+}
+
+.api dl {
+    border-bottom: 1px solid #d9d9d9;
+    margin: 0 -12px 24px -12px;
+}
+
+.api dd:before {
+    content: "Parameters";
+    font-weight: bold;
+    margin-left: 0;
+}
+
+.collapse-button {
+    color: #428bca;
+    cursor: pointer;
+    font-size: 12px;
+    text-transform: none;
+    font-weight: normal;
+    margin-left: 12px;
+}
+
+/* Request Line */
+
+.api dt, .request-line {
+    color: #444;
+    font-family: 'Inconsolata', monospace;
+    border-bottom-color: #d9d9d9;
+    padding: 12px 12px;
+    border-bottom: 1px solid transparent;
+    overflow: hidden;
+    background-color: #d9edf7;
+}
+
+.request-line {
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.request-line .request-uri .literal {
+    font-family: 'Inconsolata', monospace;
+}
+
+.api dt em, .request-method {
+    padding: 6px 12px;
+    margin-right: 12px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-style: normal;
+}
+
+.api dt em, .request-line .request-method {
+    color: #fff;
+    background-color: #337ab7;
+}
+
+.request-line-post {
+    background-color: #dff0d8;
+}
+
+.request-line-post .request-method {
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.request-line-put, .request-line-patch {
+    background-color: #fcf8e3;
+}
+
+.request-line-put .request-method, .request-line-patch .request-method {
+    color: #fff;
+    background-color: #ed9c28;
+}
+
+.request-line-delete {
+    background-color: #f2dede;
+}
+
+.request-line-delete .request-method {
+    color: #fff;
+    background-color: #d9534f;
+}
+
+
+
+/* Syntax Highlighting */
+.comment {
+  color: #8e908c;
+}
+.variable, .attribute {
+  color: #c82829;
+}
+.keyword, .name {
+  color: #8959a8;
+}
+.number, .literal, .constant {
+  color: #f5871f;
+}
+.class {
+  color: #eab700;
+}
+.string {
+  color: #718c00;
+}
+.function {
+  color: #4271ae;
+}
+.name {
+
+}
+
+</style>
+
+<script type="text/javascript">
+
+/*
+  Get an array [width, height] of the window.
+*/
+function getWindowDimensions() {
+  var w = window,
+      d = document,
+      e = d.documentElement,
+      g = d.body,
+      x = w.innerWidth || e.clientWidth || g.clientWidth,
+      y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+  return [x, y];
+}
+
+/*
+  Determine which navigation items should be auto-collapsed to show as many
+  as possible on the screen, based on the current window height. This also
+  collapses them.
+*/
+function autoCollapse() {
+  var windowHeight = getWindowDimensions()[1];
+  var itemsHeight = 64; /* Account for some padding */
+  var itemsArray = Array.prototype.slice.call(
+    document.querySelectorAll('nav .resource-group .heading'));
+
+  // Get the total height of the navigation items
+  itemsArray.forEach(function (item) {
+    itemsHeight += item.parentNode.offsetHeight;
+  });
+
+  // Should we auto-collapse any nav items? Try to find the smallest item
+  // that can be collapsed to show all items on the screen. If not possible,
+  // then collapse the largest item and do it again. First, sort the items
+  // by height from smallest to largest.
+  var sortedItems = itemsArray.sort(function (a, b) {
+    return a.parentNode.offsetHeight - b.parentNode.offsetHeight;
+  });
+
+  while (sortedItems.length && itemsHeight > windowHeight) {
+    for (var i = 0; i < sortedItems.length; i++) {
+      // Will collapsing this item help?
+      var itemHeight = sortedItems[i].nextSibling.offsetHeight;
+      if ((itemsHeight - itemHeight <= windowHeight) || i === sortedItems.length - 1) {
+        // It will, so let's collapse it, remove its content height from
+        // our total and then remove it from our list of candidates
+        // that can be collapsed.
+        itemsHeight -= itemHeight;
+        toggleCollapseNav({target: sortedItems[i].children[0]}, true);
+        sortedItems.splice(i, 1);
+        break;
+      }
+    }
+  }
+}
+
+
+COLLAPSED_ON_LOAD = ['response', 'parameters']
+
+function toggleCollapseButton(button, content) {
+    if (content.style.maxHeight && content.style.maxHeight == '0px') {
+        expand_section(button, content)
+    } else {
+        collapse_section(button, content)
+    }
+}
+
+function expand_section(button, content) {
+  content.style.maxHeight = content.scrollHeight + 'px';
+  button.textContent = 'Hide'
+}
+
+function collapse_section(button, content) {
+  content.style.maxHeight = '0px';
+  content.style.overflow = 'hidden';
+  button.textContent = 'Show'
+}
+
+var all_collapsable_sections = []
+function setup_collapsable_section(section) {
+    var header = section.children[0]
+    var wrapper = document.createElement('div')
+    var collapse = COLLAPSED_ON_LOAD.indexOf(header.textContent.toLowerCase()) >= 0 || section.className.indexOf('collapsed') >= 0;
+
+    section.insertBefore(wrapper, section.children[1]);
+
+    while (section.children.length > 2) {
+        var child = section.children[2]
+        section.removeChild(child)
+        wrapper.appendChild(child)
+    }
+
+    var button = setup_collapsable(wrapper, collapse)
+    header.appendChild(button);
+    all_collapsable_sections.push([button, wrapper])
+
+    if (collapse) {
+        collapse_section(button, wrapper)
+    }
+}
+
+function setup_collapsable(wrapper, collapse) {
+  var button = document.createElement('span')
+  button.textContent = 'Hide'
+  button.className = 'collapse-button'
+
+  wrapper.style.transition = 'max-height 0.3s ease-in-out';
+  wrapper.style.maxHeight = collapse ? '0px' : wrapper.scrollHeight + 'px';
+
+  button.onclick = function () {toggleCollapseButton(button, wrapper)}
+
+  return button
+}
+
+function setup_collapsable_nav(nav, collapse) {
+  var wrapper = nav.children[1]
+  var button = setup_collapsable(wrapper, collapse)
+
+  nav.children[0].onclick = function () {expand_section(button, wrapper)}
+  nav.insertBefore(button, nav.children[0])
+
+  if (collapse) {
+    collapse_section(button, wrapper)
+  }
+}
+
+function find_collapsable_sections() {
+  var collapsable = [];
+  collapsable = collapsable.concat(Array.prototype.slice.call(document.querySelectorAll('.restapi > .section')))
+  collapsable = collapsable.concat(Array.prototype.slice.call(document.querySelectorAll('.collapsable')))
+  return collapsable
+}
+
+function collapse_all() {
+  all_collapsable_sections.forEach(function (x) {collapse_section(x[0], x[1])})
+}
+
+function expand_all() {
+  all_collapsable_sections.forEach(function (x) {expand_section(x[0], x[1])})
+}
+
+function init() {
+    find_collapsable_sections().forEach(setup_collapsable_section)
+
+    var body = document.querySelector('body')
+    quicknav = document.createElement('div')
+    quicknav.className = 'quicknav'
+    body.insertBefore(quicknav, body.children[0])
+    quicknav.innerHTML = '<div>Collapse All</div><div>Expand All</div>'
+    quicknav.children[0].onclick = collapse_all
+    quicknav.children[1].onclick = expand_all
+
+    // Make nav items clickable to collapse/expand their content.
+    var navItems = document.querySelectorAll('.contents > ul > li');
+    for (i = 0; i < navItems.length; i++) {
+      setup_collapsable_nav(navItems[i], i > 0)
+    }
+
+}
+
+// Initial call to set up buttons
+
+window.onload = function () {
+    init();
+    autoCollapse();
+    // Remove the `preload` class to enable animations
+    document.querySelector('body').className = '';
+};
+
+</script>
+
+</head>
+<body>
+<div class="document" id="klik-wearable-ble-protocol">
+<h1 class="title">Klik Wearable BLE Protocol</h1>
+
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id1">Overview</a><ul>
+<li><a class="reference internal" href="#message-transport" id="id2">Message Transport</a></li>
+<li><a class="reference internal" href="#message-construction" id="id3">Message Construction</a></li>
+<li><a class="reference internal" href="#wearable-ids" id="id4">Wearable IDs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#commands" id="id5">Commands</a><ul>
+<li><a class="reference internal" href="#rssi-filter" id="id6">RSSI Filter</a></li>
+<li><a class="reference internal" href="#id-filter" id="id7">ID Filter</a></li>
+<li><a class="reference internal" href="#set-groups" id="id8">Set Groups</a></li>
+<li><a class="reference internal" href="#ack" id="id9">Ack</a></li>
+<li><a class="reference internal" href="#wakeup-ping" id="id10">Wakeup Ping</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#wearable-advertisements" id="id11">Wearable Advertisements</a><ul>
+<li><a class="reference internal" href="#advertise-ack" id="id12">Advertise Ack</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id1">Overview</a></h1>
+<p>This document describes the BLE protocol used by klik wearables. It assumes basic familiarity with Bluetooth Low
+Energy concepts and protocol.</p>
+<div class="section" id="message-transport">
+<h2><a class="toc-backref" href="#id2">Message Transport</a></h2>
+<p>The klik protocol works by exchanging messages between a client and the wearable over the BLE advertising channels. BLE
+connected mode is not used in the protocol.</p>
+<p>When a client wants to send a message to a wearable, it advertises the message over the BLE advertising channels using
+a <cite>local name</cite> that the wearables are programmed to listen for.</p>
+<p>The wearable can then receive that message and react to it as appropriate. The wearable is not listening constantly
+to preserve battery life. When in full power management mode, it listens only every 10 seconds, so it may require
+a long time for it to receive the initial message. However, once it hears a message, it will reduce power management
+to be more reactive.</p>
+</div>
+<div class="section" id="message-construction">
+<h2><a class="toc-backref" href="#id3">Message Construction</a></h2>
+<div class="section" id="payload-field">
+<h3>Payload Field</h3>
+<p>The actual klik message payload is transported in one of two BLE fields: <cite>0xff</cite> (limited to 25 bytes or so)
+or <cite>0x07</cite> (limited to 16 bytes). These fields are binary. We call this field the &quot;payload&quot; field.</p>
+<p>A single payload field can contain multiple klik commands within the single klik message. In other words you can send multiple
+commands within the same <cite>0xff</cite> payload field, assuming there is space available.</p>
+<p>When a wearable receives a message, it proceeds to process each command in turn, from the start of the message to
+the end. This is important to understand in case filter commands are used.</p>
+</div>
+<div class="section" id="local-names">
+<h3>Local Names</h3>
+<p>In addition to sending the payload field (<cite>0xff</cite> or <cite>0x07</cite>), the client must also send a local name field (<cite>0x09</cite>) with a recognized
+local name. For the purposes of this document, use the local name of <cite>REG</cite>, followed by up to 4 ascii characters that will
+identify the client to aid with debugging onsite like <cite>REGYUL</cite>. Local names are in ascii per the BLE spec.</p>
+</div>
+<div class="section" id="ble-refresher">
+<h3>BLE Refresher</h3>
+<p>Putting all this together with field IDs and lengths (and this is straight from the BLE spec), you will get a BLE advertisement packet that looks something like (in hex):</p>
+<pre class="literal-block">
+&lt;ble-flags&gt;&lt;local-name-len + 1&gt;09&lt;localname&gt;&lt;klik-message-len + 1&gt;ff&lt;klik-message&gt;
+</pre>
+</div>
+</div>
+<div class="section" id="wearable-ids">
+<h2><a class="toc-backref" href="#id4">Wearable IDs</a></h2>
+<p>Each wearable is given a 3-byte unique ID, and this unique ID is related both to its BLE MAC address as well as its BLE local
+name. It is important to know how to translate local names (7 ascii characters) into unique IDs (which are 3 bytes) as
+it is used in some commands.</p>
+<p>Wearables have localnames that being with <cite>PIX</cite> and end with their 3-byte ID that has been url-safe base64 encoded. For example,
+the local name <cite>PIXAA12</cite> is the local name for a pixel with 3-byte ID <cite>0x000d76</cite>.</p>
+<p>Url-safe base64 is just like standard base64 encoding, except it uses <cite>-</cite> instead of <cite>+</cite> and <cite>_</cite> instead of <cite>/</cite>.</p>
+</div>
+</div>
+<div class="section" id="commands">
+<h1><a class="toc-backref" href="#id5">Commands</a></h1>
+<p>The general format of a klik BLE message that is placed in the payload field is:</p>
+<pre class="literal-block">
+&lt;cmd1 type&gt;&lt;cmd1 value&gt;&lt;cmd2 type&gt;&lt;cmd2 value&gt;...
+</pre>
+<p>Each command within the message will be executed in order. Some commands, such as filters, can cause the wearable to
+stop processing the rest of the message.</p>
+<p>Some commands have fixed lengths, while others are variable. Each command will explain the proper way to construct
+its value. In this document, each part (variable) in the command will either be a literal value in hex (eg 0x0105) and or name, followed
+by a size in either bytes (<cite>B</cite>) or bits (<cite>b</cite>). Eg, the following means one byte of value 5, then 1 byte representing
+a variable myvar1, followed by a 4 bit variable myvar2:</p>
+<pre class="literal-block">
+0x05&lt;myvar1 1B&gt;&lt;myvar2 4b&gt;
+</pre>
+<div class="section" id="rssi-filter">
+<h2><a class="toc-backref" href="#id6">RSSI Filter</a></h2>
+<p>The RSSI filter command instructs the wearable to stop processing a message if the RSSI is less than the specified value
+(IE further away). It is useful to limit the physical range of a command:</p>
+<pre class="literal-block">
+0xa352&lt;rssi 1B&gt;a4
+</pre>
+<p>The RSSI value is 1 byte. The higher the RSSI, the further away the wearable is. RSSI values generally range from 20 (far)
+to 80 (near).</p>
+</div>
+<div class="section" id="id-filter">
+<h2><a class="toc-backref" href="#id7">ID Filter</a></h2>
+<p>The ID filter command instructs the wearable to stop process a message if their ID does not match the supplied ID. It is
+used to target a command for an individual wearable:</p>
+<pre class="literal-block">
+0xa342&lt;ID 3B&gt;a4
+</pre>
+</div>
+<div class="section" id="set-groups">
+<h2><a class="toc-backref" href="#id8">Set Groups</a></h2>
+<p>This command will tell the wearable to set a group for each of the 8 layers stored in the wearable. This is used
+so that wearables can be targetted by group and layer during a lightshow:</p>
+<pre class="literal-block">
+0x59&lt;active-layer 1B&gt;&lt;group0 1B&gt;&lt;group1 1B&gt;&lt;group2 1B&gt;&lt;group3 1B&gt;&lt;group4 1B&gt;&lt;group5 1B&gt;&lt;group6 1B&gt;&lt;group7 1B&gt;
+</pre>
+<p>The <cite>active-layer</cite> field is a value from 0 to 7 that indicates which group should be activated once the command is
+completed. If in doubt, set this to 0. Each subsequent byte is the value for the group in each of the 8 layers. The
+group value must be between 0 and 31, however.</p>
+</div>
+<div class="section" id="ack">
+<h2><a class="toc-backref" href="#id9">Ack</a></h2>
+<p>Given the un-reliable nature of the BLE transport, often it is useful to have the wearable acknowledge that it has
+received and processed the command. In this case, the message can be appended with an ack command that instructs
+the wearable to advertise the ack ID immediately:</p>
+<pre class="literal-block">
+0x4d&lt;ackid 1B&gt;
+</pre>
+<p>After processing this command, the wearable will advertise the ackid for a few hundred milleseconds as described
+in <a class="reference internal" href="#advertise-ack">Advertise Ack</a></p>
+</div>
+<div class="section" id="wakeup-ping">
+<h2><a class="toc-backref" href="#id10">Wakeup Ping</a></h2>
+<p>This command will instruct the wearable to wake up from its power management state and send advertisements very quickly.
+This is useful to quickly discover wearables without waiting for their normal advertising schedule:</p>
+<pre class="literal-block">
+0x51ff05
+</pre>
+</div>
+</div>
+<div class="section" id="wearable-advertisements">
+<h1><a class="toc-backref" href="#id11">Wearable Advertisements</a></h1>
+<p>Wearables will also periodically (and on command) send out BLE advertising messages. This messages allow a client to
+discover wearables that are nearby, and to request and gain information from the wearable. This section will document
+what payloads are possible in such messages.</p>
+<div class="section" id="advertise-ack">
+<h2><a class="toc-backref" href="#id12">Advertise Ack</a></h2>
+<p>When asked via <a class="reference internal" href="#ack">Ack</a> command, the wearable will echo the ack ID that it was asked to ack:</p>
+<pre class="literal-block">
+0x0e&lt;ackid 1B&gt;
+</pre>
+</div>
+</div>
+</div>
+</body>
+</html>
