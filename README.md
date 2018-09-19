@@ -32,7 +32,7 @@ The [__discover.js__](discover.js) script will listen for "ack" replies that the
 
 ## Usage
 
-These scripts should be run in parallel (e.g., use two terminal windows). If we want to set up multiple "hot spots", we can the advertise script
+These scripts should be run in parallel (e.g., use two terminal windows). If we require multiple "hot spots" to expand the advertise area, we can run just the advertise script (note: this hasn't been tested and might require code updates).
 
 ### Advertise
 
