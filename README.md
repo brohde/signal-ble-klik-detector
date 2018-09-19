@@ -1,4 +1,4 @@
-#signal-ble-klik-detector
+# signal-ble-klik-detector
 
 Bluetooth Low Energy Presence Detection for Klik Wearable Devices
 
