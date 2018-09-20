@@ -17,7 +17,7 @@ class Discover {
   start() {
     noble.startScanning([], true);
     this.addEventListeners();
-    this.expirePressenceInterval = setInterval(this.expireRun.bind(this),
+    this.expirePresenceInterval = setInterval(this.expireRun.bind(this),
         EXPIRE_CHECK_INTERVAL);
   }
 
@@ -49,7 +49,7 @@ class Discover {
     }
 
     const namePrefix = localName.slice(0, 3).toLowerCase();
-    const isKlikWearable = namePrefix === 'fri' || namePrefix === 'pix';
+    const isKlikWearable = ['fri', 'pix'].includes(namePrefix);
     const time = new Date().toLocaleTimeString('en-US');
 
     if (isKlikWearable) {
