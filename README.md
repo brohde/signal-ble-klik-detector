@@ -1,6 +1,6 @@
 # signal-ble-klik-detector
 
-Bluetooth Low Energy Presence Detection for Klik Wearable Devices
+Bluetooth Low Energy "Walk Up" Presence Detection for Klik Wearable Devices
 
 ## Overview
 There are two components to detect Klik wearables. First, (1) we must advertise a message to Klik devices within range to ask them to respond to us quickly. Then, (2) we must listen for the response to detect the device(s).
@@ -16,8 +16,8 @@ The [__discover.js__](discover.js) script will listen for "ack" replies that the
 ## Requirements
 
 ### System
-* __Linux OS__ (not Mac OS) – For testing, I have been using Ubuntu 18.04.1 LTS through a VirtualBox instance on my Macbook Pro. A Raspberry Pi and any Linux OS should also work.
-* __BlueZ__ — Bluetooth drivers [http://www.bluez.org/](http://www.bluez.org/)
+* __Linux OS__ (not Mac OS) — For testing, I have been using Ubuntu 18.04.1 LTS through a VirtualBox instance on my Macbook Pro. A Raspberry Pi and any Linux OS should also work.
+* __BlueZ__ — Bluetooth drivers [http://www.bluez.org/](http://www.bluez.org/). These should be installed by default on Linux.
 * node & npm
 
 
@@ -28,11 +28,12 @@ The [__discover.js__](discover.js) script will listen for "ack" replies that the
 
 ## Installation
 1. Clone repository
+1. `apt-get install libudev-dev`
 1. `npm i`
 
 ## Usage
 
-These scripts should be run in parallel (e.g., use two terminal windows). If we require multiple "hot spots" to expand the advertise area, we can run just the advertise script (note: this hasn't been tested and might require code updates).
+These scripts should be run in parallel (e.g., use two terminal windows). If we require multiple "hot spots" to expand the advertise area, we can run just the advertise script (Note: this hasn't been tested and might require code updates).
 
 ### Advertise
 
@@ -62,5 +63,5 @@ poweredOn
 
 * [Bluetooth 4.0 Specification (pdf)](docs/Bluetooth_Core_V4.0.pdf)
 * [Klik BLE Protocol (html)](docs/klikbleproto.html)
-* [Noble](https://github.com/noble/noble) – Node library used for listening to Bluetooth devices _(requires BlueZ)_
-* [Bleno](https://github.com/noble/bleno) – Node library used for advertising Bluetooth messages _(requires BlueZ)_
+* [Noble](https://github.com/noble/noble) — Node library used for listening to Bluetooth devices _(requires BlueZ)_
+* [Bleno](https://github.com/noble/bleno) — Node library used for advertising Bluetooth messages _(requires BlueZ)_
