@@ -1,100 +1,41 @@
-var noble = require('noble');
+require('dotenv').load();
+var fetch = require('isomorphic-fetch');
+var discover = require('./lib/discover');
 
-const DEVICE_TIMEOUT = 4000;
-const EXPIRE_CHECK_INTERVAL = 500;
-const ACK_BUFFER = new Buffer('0e11', 'hex');
+discover.start();
 
+discover.on('clicked', (event) => {
+  console.log('Device Clicked:', event.deviceId, event.peripheral.rssi);
+});
 
-class Discover {
+discover.on('found', async (event) => {
+  console.log('Device Found:', event.deviceId, event.peripheral.rssi);
 
-  constructor() {
-    this.devices = {};
-    this.expirePresenceInterval = null;
+  const { deviceId } = event;
+  const postUrl = process.env.ON_PRESENCE_FOUND_URL;
 
-    this.start();
+  if (!postUrl) {
+    return;
   }
 
-  start() {
-    noble.startScanning([], true);
-    this.addEventListeners();
-    this.expirePresenceInterval = setInterval(this.expireRun.bind(this),
-        EXPIRE_CHECK_INTERVAL);
+  const res = await fetch(`${postUrl}/${deviceId}`);
+  const json = await res.json();
+
+  console.log(json);
+});
+
+discover.on('lost', async (event) => {
+  console.log('Device Lost:', event.deviceId);
+
+  const { deviceId } = event;
+  const postUrl = process.env.ON_PRESENCE_LOST_URL;
+
+  if (!postUrl) {
+    return;
   }
 
-  expireRun() {
-    Object.keys(this.devices).map(deviceId => {
-      const t = this.devices[deviceId].ts + DEVICE_TIMEOUT;
+  const res = await fetch(`${postUrl}/${deviceId}`);
+  const json = await res.json();
 
-      if (t <= Date.now()) {
-        delete this.devices[deviceId];
-        this.onPresenceLost(deviceId);
-      }
-    })
-  }
-
-  addEventListeners() {
-    noble.on('stateChange', this.onStateChange.bind(this));
-    noble.on('discover', this.onDiscover.bind(this));
-  }
-
-  onStateChange(state) {
-    console.log(state);
-  }
-
-  onDiscover(p) {
-    const { localName } = p.advertisement;
-
-    if (typeof localName !== 'string') {
-      return;
-    }
-
-    const namePrefix = localName.slice(0, 3).toLowerCase();
-    const isKlikWearable = ['fri', 'pix'].includes(namePrefix);
-    const time = new Date().toLocaleTimeString('en-US');
-
-    if (isKlikWearable) {
-
-      const data = p.advertisement.manufacturerData;
-      const deviceId = localName.slice(3); //strip PIX or FRI
-
-      if (!data) {
-        return;
-      }
-
-      const alreadySeen = typeof this.devices[deviceId] !== 'undefined';
-
-      // Ensure we're receiving ACK data, or if the device is already seen
-      // (and hasn't expired), but it transmitting other data (i.e. user
-      // is pressing Klik button), still mark the device as seen.
-
-      if (!ACK_BUFFER.equals(data) && !alreadySeen) {
-        return;
-      }
-
-      this.seen(deviceId, { rssi: p.rssi, advertisement: p.advertisement });
-
-    }
-  }
-
-  seen(deviceId, data) {
-    if (!this.devices[deviceId]) {
-      // Newly seen
-      this.onPresenceDetected(deviceId, data);
-    }
-
-    this.devices[deviceId] = {
-      ts: Date.now(),
-      data
-    };
-  }
-
-  onPresenceDetected(deviceId, data) {
-    console.log('onPresenceDetected', deviceId, data.rssi);
-  }
-
-  onPresenceLost(deviceId) {
-    console.log('onPresenceLost', deviceId);
-  }
-}
-
-new Discover();
+  console.log(json);
+});
