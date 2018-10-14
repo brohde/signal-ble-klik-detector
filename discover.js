@@ -18,7 +18,7 @@ discover.on('found', async (event) => {
     return;
   }
 
-  const res = await fetch(`${postUrl}/${deviceId}`);
+  const res = await fetch(`${postUrl}/PIX${deviceId}`);
   const json = await res.json();
 
   console.log(json);
@@ -34,7 +34,7 @@ discover.on('lost', async (event) => {
     return;
   }
 
-  const res = await fetch(`${postUrl}/${deviceId}`);
+  const res = await fetch(`${postUrl}/PIX${deviceId}`);
   const json = await res.json();
 
   console.log(json);
